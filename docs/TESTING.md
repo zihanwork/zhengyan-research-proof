@@ -56,6 +56,10 @@ npm run dev
 
 其余故障演练、合规边界、移动端和线上实际验收记录见 `docs/DELIVERY_STATUS.md`。
 
+## 真实 LLM 端到端验收
+
+实际 DeepSeek `deepseek-flash` 已完成临时配置与生产默认配置两条路径，均为真实模型推理、真实六路取证、字段独立复算、4/4验收复核与实际导出。正式运行 ID `81c168d3-5904-4e7c-993e-3bb6edad96a5`，模式为 `live`，`model_record` 含实际模型、prompt版本、response_id、token统计与结构化输出。原始凭证和完整边界见 [REAL_AI_VALIDATION.md](REAL_AI_VALIDATION.md)。两次对应同一输入，不计为两个独立语义样本。复核由 Codex 执行验收，不冒称真实研究员签审。
+
 ## 明确的验证限制
 
 2026-10-29 增补标准 Next.js 迁移验证：`npm run build:next` 通过；本地生产模式首页、`/api/status` 和 `/api/sample` HTTP 200；固定规划取证返回 HTTP 200，五路扶摇和一路 iFinD 均返回成功。精确来源时点仍由产品校验，成功响应不等于两源一致。

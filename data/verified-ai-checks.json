@@ -1,0 +1,63 @@
+{
+  "run_id": "81c168d3-5904-4e7c-993e-3bb6edad96a5",
+  "created_at": "2026-10-28T18:31:48.108Z",
+  "model": "deepseek-flash",
+  "model_duration_ms": 6508,
+  "usage": {
+    "prompt_tokens": 453,
+    "completion_tokens": 1096,
+    "total_tokens": 1549,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 925
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 197
+  },
+  "data_phase_ms": 4628,
+  "window_dates": [
+    "20261021",
+    "20261022",
+    "20261023",
+    "20261026",
+    "20261027",
+    "20261028"
+  ],
+  "checks": {
+    "E1": {
+      "independent_value": 1.608014110209277,
+      "app_value": 1.608014110209277,
+      "pass": true
+    },
+    "E2": {
+      "independent_value": 2.2904187231282847,
+      "app_value": 2.2904187231282847,
+      "pass": true
+    },
+    "E3": {
+      "independent_value": 0.8625945920905783,
+      "app_value": 0.8625945920905784,
+      "pass": true
+    },
+    "E4": {
+      "independent_value": 20.428155,
+      "app_value": 20.428155,
+      "pass": true
+    }
+  },
+  "all_sources_ok": true,
+  "plan_matches_expected": true,
+  "verdicts": [
+    "supported",
+    "contradicted",
+    "supported",
+    "unknown"
+  ],
+  "reviewed_count": 4,
+  "review_operator": "Codex-assisted acceptance; not a real researcher sign-off",
+  "scope": "Two real runs of one input: temporary config and production default. No population-level accuracy or human efficiency claim.",
+  "production_deployment": "dpl_7P2H7N4krEKMsVSnC2X5thC5jcMw",
+  "first_byok_run": "8541de5a-fda0-4871-ac5a-749adc01cfad"
+}
