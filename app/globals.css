@@ -4568,3 +4568,6 @@ body {
 .desk-open .landing-page {
   visibility: hidden;
 }
+/* Keep desktop navigation anchored while the research panel scrolls. */
+.desk-layer{backdrop-filter:none}
+.desk-layer .topbar{position:sticky;top:0;z-index:35}
