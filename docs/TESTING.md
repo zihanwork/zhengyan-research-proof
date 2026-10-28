@@ -62,7 +62,7 @@ npm run dev
 
 HTTP 兼容与边界验证：同源 `/api/plan` 请求进入业务校验并明确报模型未配置；不同 Origin 被拒绝；第 9 次相同访客请求触发限流，新的访客不继承旧访客的额度。Vercel 通过平台访客头识别 IP，原 Sites 路径继续使用 Cloudflare 的访客头。
 
-原公开域名在用户 Chrome 中被 Cloudflare 防护拦截。新的 Vercel 云端部署与无登录 Chrome 验收尚待完成，不能以本地生产验证替代。
+原公开域名在用户 Chrome 中被 Cloudflare 防护拦截。新地址 https://zhengyan-research-proof.vercel.app 已通过无凭据 HTTP 200 验证及用户 Chrome 实际操作；在线取证、E2 原始字段凭证、C1 测试复核备注、Markdown 与 JSON 导出均已验证。取证任务 `e846e43e-fc84-478e-8b7d-fc537ed329fd`，生成于 `2026-10-28T18:05:42.754Z`；五路扶摇与 iFinD 均成功，时点不一致提示仍保留。原域名拦截未被解除，使用新的正式地址。
 
 - 真实 LLM 是否实测、采用什么模型，以真实 `model_record` 和交付状态为准；模拟响应不能算通过。缺密钥时自定义 AI 路径明确失败。
 - 正则规则不是完整金融内容审核器，尚未覆盖所有隐喻、规避、否定语境和多语言表达。

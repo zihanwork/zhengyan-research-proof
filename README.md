@@ -2,7 +2,8 @@
 
 把一段 A 股研究观点变成逐条可核验的主张：**原文 → AI 结构化计划 → 人工确认 → 金融数据取证 → 确定性核验 → 人工复核 → 带来源导出**。
 
-- 原 Web 地址：https://zhengyan-investment-proof.zihanwork0711.chatgpt.site （当前 Chrome 访问出现平台安全拦截；不作为已验证可访问的评审链接）
+- Web 产品：https://zhengyan-research-proof.vercel.app
+- 原 Sites 域名遇到平台安全拦截，评审请使用上方 Vercel 地址。
 - 交付版本：研究原型 v1.0（2026-10-29，Asia/Shanghai）
 - 详细产品设计：[docs/PRODUCT.md](docs/PRODUCT.md)
 - AI 使用与修正记录：[docs/AI_USAGE.md](docs/AI_USAGE.md)
@@ -48,7 +49,7 @@ npm run build:next
 npm run start:next
 ```
 
-Vercel 上由平台设置的访客 IP 参与每实例请求限制。分布式全局配额仍属于尚未实现的能力。迁移配置已通过本地构建；云端发布与外部访问验证须在账号连接后完成。
+Vercel 上由平台设置的访客 IP 参与每实例请求限制。分布式全局配额仍属于尚未实现的能力。正式 Vercel 版本已于 2026-10-29 发布。无凭据请求与用户 Chrome 均验证正常打开，固定规划在线取证的六路来源均返回成功；字段时点差异仍显式提示。实际运行代码提交为 `3595046d51f397ce478cf50f1d3134560e88dfdc`。本次通过 Vercel 原生 API 上传同一提交的源文件发布；GitHub 自动发布尚未关联，后续更新需显式发布或由用户连接 GitHub 集成。
 
 ```bash
 npm test
@@ -69,7 +70,7 @@ npm run build
 | `LLM_MODEL` | 账号实际可调用的模型 ID，无默认猜测值 | AI 规划必需 |
 | `PLAN_SIGNING_SECRET` | 服务端 HMAC 签名，防止修改 AI 计划与模型使用记录 | AI 规划必需；建议随机 32 字节以上 |
 
-密钥不写入源代码、浏览器包或 `.openai/hosting.json`。`.dev.vars` 与 `.env*` 默认被 Git 忽略，唯一例外是没有真实值的 `.env.example`。线上通过 Sites 原生 secret 配置。公开评审版使用用户授权的金融服务密钥，LLM 配置状态可在设置中查看。不要向研究文本提交账户、持仓、客户信息等敏感材料。
+密钥不写入源代码、浏览器包或 `.openai/hosting.json`。`.dev.vars` 与 `.env*` 默认被 Git 忽略，唯一例外是没有真实值的 `.env.example`。线上通过 Sites 原生 secret 或 Vercel 服务端敏感环境变量配置。公开评审版使用用户授权的金融服务密钥，LLM 配置状态可在设置中查看。不要向研究文本提交账户、持仓、客户信息等敏感材料。
 
 ## 产品选择与 AI 的增量价值
 
