@@ -23,12 +23,10 @@ import {
   Layers3,
   Link2,
   LoaderCircle,
-  PanelLeftClose,
   Plus,
   Search,
   Settings2,
   ShieldCheck,
-  Sparkles,
   SquareArrowOutUpRight,
   X,
 } from "lucide-react";
@@ -212,7 +210,7 @@ function AnimatedNumber({ value }: { value: number }) {
   return <>{shown}</>;
 }
 export default function Home() {
-  const [screen, setScreen] = useState("home");
+  const [screen, setScreen] = useState("desk");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [tab, setTab] = useState("work");
   const [text, setText] = useState(EXAMPLE);
@@ -519,22 +517,24 @@ export default function Home() {
   };
   return (
     <div className={"experience " + (screen === "desk" ? "desk-open" : "")}>
-      <div className="bg" aria-hidden="true">
-        <video
-          className="bg-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div className="video-shade" />
-      </div>
+      {screen === "home" && (
+        <div className="bg" aria-hidden="true">
+          <video
+            className="bg-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          >
+            <source
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div className="video-shade" />
+        </div>
+      )}
       <div
         className="landing-page"
         aria-hidden={screen === "desk" || settings || mobileMenu}
@@ -700,22 +700,16 @@ export default function Home() {
               href="/"
               onClick={(e) => {
                 e.preventDefault();
-                setScreen("home");
+                setTab("work");
+                setScreen("desk");
               }}
               aria-label="证研首页"
             >
               <span className="brand-mark">
                 <Layers3 size={23} />
               </span>
-              <span>
-                证研<span className="brand-en">RESEARCH DESK</span>
-              </span>
+              <span>证研</span>
             </a>
-            <div className="workspace-switch">
-              <span className="workspace-dot">R</span>
-              <div>投研工作空间</div>
-              <ChevronDown size={14} />
-            </div>
             <div className="nav-label">工作台</div>
             <nav aria-label="主导航">
               <button
@@ -759,10 +753,6 @@ export default function Home() {
               数据文档
               <ExternalLink size={13} />
             </a>
-            <div className="sidebar-note">
-              <ShieldCheck size={21} />
-              <strong>证据先行，判断留痕</strong>
-            </div>
             <div className="sidebar-bottom">
               <span className="avatar">研</span>
               <div>研究员</div>
@@ -774,7 +764,6 @@ export default function Home() {
           <div className="main-shell">
             <header className="topbar">
               <div>
-                <PanelLeftClose size={17} />
                 <span className="crumb-divider">/</span>研究工作台
                 <ChevronRight size={14} />
                 <strong id="desk-title">
@@ -790,8 +779,8 @@ export default function Home() {
                   className="return-home"
                   onClick={() => setScreen("home")}
                 >
-                  <X size={16} />
-                  返回首页
+                  <ExternalLink size={15} />
+                  产品介绍
                 </button>
                 <button onClick={() => setSettings(true)}>
                   <Activity size={16} />
@@ -805,14 +794,8 @@ export default function Home() {
                 <>
                   <div className="page-heading">
                     <div>
-                      <div className="eyebrow">
-                        <span />
-                        研究，始于求证
-                      </div>
-                      <h1>
-                        把判断，<span>交给证据。</span>
-                      </h1>
-                      <p>拆开一段观点，留下每一步判断的依据。</p>
+                      <h1>观点核验</h1>
+                      <p>核对观点中的数据与依据，并记录复核意见。</p>
                     </div>
                     <button className="btn btn-light" onClick={newTask}>
                       <Plus size={17} />
@@ -822,10 +805,9 @@ export default function Home() {
                   <section className="compose-card">
                     <div className="section-title">
                       <span className="icon-square">
-                        <Sparkles size={18} />
+                        <FileText size={18} />
                       </span>
-                      <h2>从一段观点开始</h2>
-                      <span className="tag subtle">AI 辅助核验</span>
+                      <h2>待核验观点</h2>
                     </div>
                     <label className="sr-only" htmlFor="claim-text">
                       待核验观点
@@ -897,14 +879,14 @@ export default function Home() {
                         {busy === "plan" ? (
                           <LoaderCircle className="spin" size={17} />
                         ) : (
-                          <Sparkles size={17} />
+                          <FileCheck2 size={17} />
                         )}{" "}
-                        {busy === "plan" ? "正在拆解…" : "拆解观点"}
+                        {busy === "plan" ? "正在生成清单…" : "生成核验清单"}
                         <ArrowRight size={16} />
                       </button>
                     </div>
                     <div className="example-row">
-                      <span>快速体验</span>
+                      <span>示例</span>
                       <button disabled={!!busy} onClick={loadSample}>
                         真实数据回放
                         <ArrowUpRight size={13} />
@@ -920,7 +902,7 @@ export default function Home() {
                     {[
                       {
                         n: "01",
-                        title: "观点拆解",
+                        title: "生成清单",
                         detail: "LLM 生成核验计划",
                       },
                       {
@@ -935,7 +917,7 @@ export default function Home() {
                       },
                       {
                         n: "04",
-                        title: "留痕与导出",
+                        title: "导出记录",
                         detail: "带来源的研究记录",
                       },
                     ].map((s, i) => (
@@ -965,7 +947,7 @@ export default function Home() {
                     <div className="error-banner" role="alert">
                       <CircleAlert size={18} />
                       <div>
-                        <strong>流程已停止</strong>
+                        <strong>暂未完成</strong>
                         <p>{error}</p>
                       </div>
                       <button
@@ -993,7 +975,7 @@ export default function Home() {
                         </span>
                         <h2>先确认，再取证</h2>
                         <span className="tag green">
-                          AI 已拆解 {plan.claims.length} 条
+                          {plan.claims.length} 条待核验
                         </span>
                       </div>
                       <p className="muted">
@@ -1052,7 +1034,7 @@ export default function Home() {
                             }
                           >
                             {run.mode === "live"
-                              ? "AI 规划 · 在线取证"
+                              ? "模型规划 · 在线取证"
                               : run.mode === "live_fixed"
                                 ? "固定规划 · 在线取证"
                                 : run.mode === "simulation"
@@ -1087,7 +1069,7 @@ export default function Home() {
                           {run.mode === "simulation"
                             ? "故障演练：使用人工注入的数据。"
                             : run.mode === "live_fixed"
-                              ? "实时数据 · 固定示例规划，未调用 AI。"
+                              ? "本次取证使用固定清单，未进行模型规划。"
                               : `示例回放 · ${fullTime(run.created_at)} CST · 非实时数据，使用预设规划。`}
                           {run.mode === "simulation" && (
                             <button onClick={loadSample}>恢复真实样例</button>
@@ -1522,8 +1504,7 @@ export default function Home() {
                 <>
                   <div className="page-heading">
                     <div>
-                      <div className="eyebrow">RESEARCH LOG</div>
-                      <h1>每一次复核，都有迹可循。</h1>
+                      <h1>核验记录</h1>
                       <p>
                         保存在当前浏览器的最近 8
                         条记录。原始响应、逐条结论和复核备注可一起导出。
@@ -1549,7 +1530,7 @@ export default function Home() {
                     ).length === 0 ? (
                       <div className="empty-state">
                         <History size={28} />
-                        <h3>这里等待你的第一条研究记录</h3>
+                        <h3>暂无核验记录</h3>
                         <p>完成在线取证或复核示例后，记录会保存在此浏览器。</p>
                         <button
                           className="btn btn-light"
@@ -1615,9 +1596,8 @@ export default function Home() {
                 <>
                   <div className="page-heading">
                     <div>
-                      <div className="eyebrow">METHODOLOGY & BOUNDARIES</div>
-                      <h1>AI 负责理解，证据负责约束。</h1>
-                      <p>一个可以跑通、也可以被证伪的研究质量工作流。</p>
+                      <h1>核验方法与使用边界</h1>
+                      <p>数据口径、处理规则与尚未覆盖的事项。</p>
                     </div>
                   </div>
                   <div className="method-grid">
@@ -1643,7 +1623,7 @@ export default function Home() {
                     </section>
                     <section className="method-card">
                       <span className="icon-square">
-                        <Sparkles size={21} />
+                        <FileText size={21} />
                       </span>
                       <h2>为什么需要 LLM</h2>
                       <p>
@@ -1771,7 +1751,7 @@ export default function Home() {
               </button>
             </div>
             <p className="muted">
-              接入模型，核验你自己的观点。密钥仅在本页临时使用，刷新后清除。
+              生成核验清单需要模型服务。密钥仅保留在当前页面，刷新后清除。
             </p>
             <div className="connection-overview">
               <div>
@@ -1785,9 +1765,9 @@ export default function Home() {
                 <b>{status.ifind ? "服务端已配置" : "未配置"}</b>
               </div>
               <div>
-                <Sparkles size={17} />
+                <FileCheck2 size={17} />
                 <span>默认模型</span>
-                <b>{status.model ? status.model_name : "等待接入"}</b>
+                <b>{status.model ? status.model_name : "待配置"}</b>
               </div>
             </div>
             <label className="form-label">
@@ -1869,7 +1849,7 @@ export default function Home() {
           >
             <div className="drawer-heading">
               <div>
-                <span className="eyebrow">EVIDENCE RECEIPT · {drawer.id}</span>
+                <span className="eyebrow">证据编号 · {drawer.id}</span>
                 <h2 id="evidence-title">{drawer.label}</h2>
               </div>
               <button onClick={() => setDrawer(null)} aria-label="关闭证据">
