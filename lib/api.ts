@@ -11,7 +11,13 @@ export function apiResponse(body: unknown, status = 200) {
 }
 export async function readBody(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin)
+  const target = new URL(request.url);
+  // Next.js can use an internal hostname in request.url; Host retains the
+  // incoming public host. Keep exact origin checks across both runtimes.
+  target.host = request.headers.get("host") || target.host;
+  if (getRuntime().VERCEL === "1" && request.headers.get("x-forwarded-proto") === "https")
+    target.protocol = "https:";
+  if (origin && origin !== target.origin)
     throw new Error("拒绝跨站请求");
   if (!request.headers.get("content-type")?.includes("application/json"))
     throw new Error("只接受 JSON");
@@ -19,7 +25,10 @@ export async function readBody(request: Request) {
     throw new Error("请求体过大");
   const raw = await request.text();
   if (raw.length > 32000) throw new Error("请求体过大");
-  const ip = request.headers.get("cf-connecting-ip") || "local";
+  // Trust the visitor header set by the selected hosting platform only.
+  const ip = getRuntime().VERCEL === "1"
+    ? request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() || "local"
+    : request.headers.get("cf-connecting-ip") || "local";
   const now = Date.now();
   if (limits.size > 1000)
     for (const [k, v] of limits) if (v.until < now) limits.delete(k);

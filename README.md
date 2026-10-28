@@ -2,7 +2,7 @@
 
 把一段 A 股研究观点变成逐条可核验的主张：**原文 → AI 结构化计划 → 人工确认 → 金融数据取证 → 确定性核验 → 人工复核 → 带来源导出**。
 
-- Web 产品：https://zhengyan-investment-proof.zihanwork0711.chatgpt.site
+- 原 Web 地址：https://zhengyan-investment-proof.zihanwork0711.chatgpt.site （当前 Chrome 访问出现平台安全拦截；不作为已验证可访问的评审链接）
 - 交付版本：研究原型 v1.0（2026-10-29，Asia/Shanghai）
 - 详细产品设计：[docs/PRODUCT.md](docs/PRODUCT.md)
 - AI 使用与修正记录：[docs/AI_USAGE.md](docs/AI_USAGE.md)
@@ -29,7 +29,26 @@ cp .env.example .dev.vars
 npm run dev
 ```
 
-打开终端打印的地址，默认 http://127.0.0.1:5173 。开发基于 React 19 / TypeScript / Vinext，生产运行于 Cloudflare Workers。保留 starter 的 Sites 构建与鉴权集成；普通 Next.js 服务可复用 UI 与核心模块，但应为 `getRuntime` 注入相同环境变量。
+打开终端打印的地址，默认 http://127.0.0.1:5173 。Sites 开发基于 React 19 / TypeScript / Vinext，生产运行于 Cloudflare Workers。另提供标准 Next.js 部署，保留同一套 UI、接口与核心模块，环境变量由 Node.js 运行时读取。
+
+## Vercel 发布
+
+原 Sites 域名已确认发布为公开状态，但浏览器遭遇上游 Cloudflare 安全拦截。当前仓库增加独立的 Next.js 发布配置，迁移无需修改产品界面或核验逻辑；原域名的安全规则仍需其托管方处理。
+
+1. 在 Vercel 导入此 GitHub 仓库，项目根目录选仓库根目录。`vercel.json` 已配置 Next.js 与 `npm run build:next`，无需手动选择输出目录。
+2. 在服务端环境变量中设置 `FUYAO_API_KEY`、可选的 `IFIND_API_KEY` 和随机的 `PLAN_SIGNING_SECRET`。不要使用 `NEXT_PUBLIC_` 前缀；不要把密钥加入仓库。
+3. 按需设置下方 LLM 变量；缺少模型密钥时只能运行真实回放和固定规划取证，不能冒充完整 AI 流程。
+4. 发布后以平台返回的正式域名为准。在无登录浏览器验证首页、回放、证据抽屉、固定示例在线取证、人工复核与导出，再提交评审链接。生产生成的 URL 不等于已完成访问验证。
+
+本地验证相同的 Next.js 产物：
+
+```bash
+# Next.js 从 .env.local 读取本地环境变量，填写与下表相同的密钥
+npm run build:next
+npm run start:next
+```
+
+Vercel 上由平台设置的访客 IP 参与每实例请求限制。分布式全局配额仍属于尚未实现的能力。迁移配置已通过本地构建；云端发布与外部访问验证须在账号连接后完成。
 
 ```bash
 npm test

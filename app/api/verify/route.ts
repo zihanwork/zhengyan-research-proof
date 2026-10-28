@@ -9,6 +9,7 @@ import {
 import { collectSources } from "@/lib/data.mjs";
 import { readBody, apiResponse, safeError } from "@/lib/api";
 import { getRuntime } from "@/lib/runtime";
+export const maxDuration = 300;
 export async function POST(request: Request) {
   try {
     const body = await readBody(request);
